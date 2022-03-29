@@ -36,3 +36,68 @@ body {
   top: 50%;
   transform: translateY(-50%);
 }
+
+#sidebar {
+  position: absolute;
+  display: flex;
+  background-color: white;
+  height: 100vh;
+  right: 0;
+  border-left: 2px solid #848484;
+}
+
+.accordion {
+  width: 300px;
+  margin-top: 3rem;
+}
+
+.accordion .content-box {
+  position: relative;
+  margin: 0px 20px;
+}
+
+.accordion .content-box .label {
+  font-family: "GaramondRegular";
+  font-size: 1.5rem;
+  position: relative;
+  padding: 10px;
+  color: #000000;
+  cursor: pointer;
+  border-top: 2px solid rgba(241, 241, 241, 0.6);
+}
+
+.accordion .content-box .label::before {
+  content: "+";
+  position: absolute;
+  top: 50%;
+  right: 20px;
+  transform: translateY(-50%);
+  font-size: 1em;
+}
+
+.accordion .content-box.active .label::before {
+  content: "-";
+}
+
+.accordion .content-box .content {
+  position: relative;
+  font-family: "GaramondRegular";
+  font-size: 1rem;
+  padding: 0 10px 0 10px;
+  height: 0;
+  overflow: hidden;
+  transition: 0.5s;
+  overflow-y: auto;
+}
+
+.accordion .content-box.active .content {
+  height: 100px;
+  padding: 10px;
+}
+
+.accordion .content-box .content .content-desc {
+  padding-bottom: 5px;
+}
+.accordion .content-box .content .content-desc img {
+  padding-right: 20px;
+}
