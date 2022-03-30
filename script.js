@@ -14,7 +14,7 @@ var svg = d3
 
 //Read the data
 d3.csv("./data/titanic_dataset.csv", function (data) {
-  console.log(data);
+  console.log(data.Survived);
 
   // Add X axis
   var x = d3.scaleLinear().domain([0, 80]).range([0, width]);
@@ -32,7 +32,7 @@ d3.csv("./data/titanic_dataset.csv", function (data) {
     .selectAll("dot")
     .data(
       data.filter(function (d) {
-        return d.Survived;
+        return d.Survived == "survival";
       })
     )
     .enter()
