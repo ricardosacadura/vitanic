@@ -1,104 +1,67 @@
-let data = "./data/titanic_dataset.csv";
+// set the dimensions and margins of the graph
+var margin = { top: 10, right: 30, bottom: 30, left: 60 },
+  width = 900 - margin.left - margin.right,
+  height = 750 - margin.top - margin.bottom;
 
-var margin = { top: 10, right: 40, bottom: 30, left: 150 },
-  width = 1100 - margin.left - margin.right,
-  height = 800 - margin.top - margin.bottom;
-
-let svg = d3
-  .select("#scatter_area")
+// append the svg object to the body of the page
+var svg = d3
+  .select("#my_dataviz")
   .append("svg")
   .attr("width", width + margin.left + margin.right)
   .attr("height", height + margin.top + margin.bottom)
-  .style("background-color", "lightgray");
+  .append("g")
+  .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-d3.csv(data, d3.autoType).then((tabela) => {
-  let statsAge = {};
-  tabela.map((linha) => {
-    statsAge = {
-      ...statsAge,
-      [linha.Age]: 0,
-    };
-  });
-  tabela.map((linha) => statsAge[linha.Age]++);
-  let spaceBetweenX = 600 / Object.keys(statsAge).length;
+//Read the data
+d3.csv("./data/titanic_dataset.csv", function (data) {
+  console.log(data);
 
-  var x = d3
-    .scaleLinear()
-    .domain([0, 80]) // This is the min and the max of the data: 0 to 100 if percentages
-    .range([50, width]); // This is the corresponding value I want in Pixel
+  // Add X axis
+  var x = d3.scaleLinear().domain([0, 80]).range([0, width]);
   svg
     .append("g")
     .attr("transform", "translate(0," + height + ")")
     .call(d3.axisBottom(x));
+  // Add Y axis
+  var y = d3.scaleLinear().domain([0, 180]).range([height, 0]);
+  svg.append("g").call(d3.axisLeft(y));
 
-  let g1 = svg
+  // Add dots
+  svg
     .append("g")
-    .attr("width", 500)
-    .attr("height", 200)
-    .attr("m", 600);
+    .selectAll("dot")
+    .data(
+      data.filter(function (d) {
+        return d.Survived;
+      })
+    )
+    .enter()
+    .append("circle")
+    .attr("cx", function (d) {
+      return x(d.Age);
+    })
+    .attr("cy", function (d) {
+      return y(d.TicketFarepound);
+    })
+    .attr("r", 2.5)
+    .style("fill", "#d0d0d0 ");
 
-  Object.keys(statsAge).map((i) => {
-    g1.append("circle")
-      .attr("cx", i * spaceBetweenX + spaceBetweenX / 2 + 50)
-      .attr("cy", d3.randomUniform(200, 700))
-      .attr("fill", "gray")
-      .attr("r", "8");
-    console.log("hello");
-    console.log(statsAge);
-  });
+  var cross = d3.symbol().type(d3.symbolCross).size(20);
 
-  //////EXAMPLE////////
-  // // set the dimensions and margins of the graph
-  // var margin = { top: 10, right: 40, bottom: 30, left: 150 },
-  //   width = 1100 - margin.left - margin.right,
-  //   height = 600 - margin.top - margin.bottom;
+  svg
 
-  // // append the svg object to the body of the page
-  // var svg = d3
-  //   .select("#scatter_area")
-  //   .append("svg")
-  //   .attr("width", width + margin.left + margin.right)
-  //   .attr("height", height + margin.top + margin.bottom)
-  //   .append("g")
-  //   .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-  // // Create data
-  // var data2 = [
-  //   { x: 10, y: 20 },
-  //   { x: 40, y: 90 },
-  //   { x: 80, y: 50 },
-  // ];
-
-  // // X scale and Axis
-  // var x = d3
-  //   .scaleLinear()
-  //   .domain([0, 100]) // This is the min and the max of the data: 0 to 100 if percentages
-  //   .range([0, width]); // This is the corresponding value I want in Pixel
-  // svg
-  //   .append("g")
-  //   .attr("transform", "translate(0," + height + ")")
-  //   .call(d3.axisBottom(x));
-
-  // // Y scale and Axis
-  // var y = d3
-  //   .scaleLinear()
-  //   .domain([0, 100]) // This is the min and the max of the data: 0 to 100 if percentages
-  //   .range([height, 0]); // This is the corresponding value I want in Pixel
-  // svg.append("g").call(d3.axisLeft(y));
-
-  // svg.append("g").call(d3.axisLeft(y));
-
-  // // Add 3 dots for 0, 50 and 100%
-  // svg
-  //   .selectAll("whatever")
-  //   .data(data2)
-  //   .enter()
-  //   .append("circle")
-  //   .attr("cx", function (d) {
-  //     return x(d.x);
-  //   })
-  //   .attr("cy", function (d) {
-  //     return y(d.y);
-  //   })
-  //   .attr("r", 7);
+    .append("g")
+    .selectAll("#dead-cross")
+    .data(
+      data.filter(function (d) {
+        return d.Survived == "dead";
+      })
+    )
+    .enter()
+    .append("path")
+    .attr("transform", function (d) {
+      return "translate(" + x(d.Age) + "," + y(d.TicketFarepound) + ")";
+    })
+    .attr("d", cross)
+    .style("fill", "#00000 ");
 });

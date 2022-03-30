@@ -1,4 +1,4 @@
-PassengerId,Name,TicketNumber,Cabin,Pclass,Sex,Embarked,Survived,Age,Age_bucket,TicketFare(pound)
+PassengerId,Name,TicketNumber,Cabin,Pclass,Sex,Embarked,Survived,Age,Age_bucket,TicketFarepound
 1,"Braund, Mr. Owen Harris",A/5 21171,,class3,male,Southampton,dead,22,(20_30],7.25
 2,"Cumings, Mrs. John Bradley (Florence Briggs Thayer)",PC 17599,C85,class1,female,Cherbourgherbourg,survival,38,(30_40],71.2833
 3,"Heikkinen, Miss. Laina",STON/O2. 3101282,,class3,female,Southampton,survival,26,(20_30],7.925
