@@ -14,7 +14,7 @@ body {
 
 @font-face {
   font-family: "GaramondBold";
-  src: url("fonts/GaramondPremrPro-Bd.otf");
+  src: url("fonts/GaramondPremrPro-BdDisp.otf");
 }
 
 @font-face {
@@ -22,18 +22,24 @@ body {
   src: url("fonts/GaramondPremrPro.otf");
 }
 
+@font-face {
+  font-family: "Latitude-Regular";
+  src: url("fonts/Latitude-Regular.woff");
+}
+
 .title {
-  font-family: "GaramondBold";
-  position: absolute;
-  font-size: 4rem;
+  font-family: "Latitude-Regular";
+  position: relative;
+  font-size: 5rem;
   color: #000000;
   left: 4rem;
   top: 2rem;
 }
 
 #my_dataviz {
+  position: relative;
   margin-left: 50px;
-  margin-top: 100px;
+  margin-top: 50px;
 }
 
 #sidebar {
