@@ -100,3 +100,39 @@ body {
 .accordion .content-box .content .content-desc img {
   padding-right: 20px;
 }
+
+.class_1 {
+  font-family: "GaramondRegular";
+  font-size: 1rem;
+  position: absolute;
+  top: 200px;
+  left: 20px;
+  z-index: 1;
+}
+
+.class_2 {
+  font-family: "GaramondRegular";
+  font-size: 1rem;
+  position: absolute;
+  top: 400px;
+  left: 20px;
+  z-index: 1;
+}
+
+.class_3 {
+  font-family: "GaramondRegular";
+  font-size: 1rem;
+  position: absolute;
+  top: 600px;
+  left: 20px;
+  z-index: 1;
+}
+
+.x_axis {
+  font-family: "GaramondRegular";
+  font-size: 1rem;
+  position: absolute;
+  bottom: 15px;
+  left: 110px;
+  z-index: 1;
+}

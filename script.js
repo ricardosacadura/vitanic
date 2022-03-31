@@ -9,32 +9,52 @@ var svg = d3
   .append("svg")
   .attr("width", width + margin.left + margin.right)
   .attr("height", height + margin.top + margin.bottom)
-  .append("g")
-  .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+  .append("g") //
+  .attr("transform", "translate(" + margin.left + "," + margin.top + ")"); //
 
 //Read the data
 d3.csv("./data/titanic_dataset.csv", function (data) {
-  console.log(data.Survived);
-
   // Add X axis
   var x = d3.scaleLinear().domain([0, 80]).range([0, width]);
   svg
     .append("g")
     .attr("transform", "translate(0," + height + ")")
     .call(d3.axisBottom(x));
+
   // Add Y axis
   var y = d3.scaleLinear().domain([0, 180]).range([height, 0]);
   svg.append("g").call(d3.axisLeft(y));
 
-  // Add dots
+  // Making a line top
   svg
-    .append("g")
-    .selectAll("dot")
-    .data(
-      data.filter(function (d) {
-        return d.Survived == "survival";
-      })
-    )
+    .append("line")
+    .style("stroke", "gray")
+    .style("stroke-dasharray", "3, 3")
+    .attr("x1", 0)
+    .attr("y1", 200)
+    .attr("x2", width)
+    .attr("y2", 200);
+
+  // Making a line bottom
+  svg
+    .append("line")
+    .style("stroke", "gray")
+    .style("stroke-dasharray", "3, 3")
+    .attr("x1", 0)
+    .attr("y1", 410)
+    .attr("x2", width)
+    .attr("y2", 410);
+
+  // Arrays with genre selection
+
+  let survived = data.filter(function (d) {
+    return d.Survived == "survival";
+  });
+
+  // Add dots;
+  var circles = svg //--------------------------------rendering SURVIVALS
+    .selectAll("circle")
+    .data(survived)
     .enter()
     .append("circle")
     .attr("cx", function (d) {
@@ -43,12 +63,21 @@ d3.csv("./data/titanic_dataset.csv", function (data) {
     .attr("cy", function (d) {
       return y(d.TicketFarepound);
     })
-    .attr("r", 2.5)
-    .style("fill", "#d0d0d0 ");
+    .attr("r", 4)
 
-  var cross = d3.symbol().type(d3.symbolCross).size(20);
+    //Paint by genre
+    .style("fill", function (d) {
+      if (d.Sex == "male") {
+        return "#01BCFA";
+      } else {
+        return "#FF8CC2";
+      }
+    })
+    .style("opacity", "0.8");
 
-  svg
+  var cross = d3.symbol().type(d3.symbolCross).size(35);
+
+  svg //-------------------------------rendering DEATHS
 
     .append("g")
     .selectAll("#dead-cross")
@@ -63,5 +92,13 @@ d3.csv("./data/titanic_dataset.csv", function (data) {
       return "translate(" + x(d.Age) + "," + y(d.TicketFarepound) + ")";
     })
     .attr("d", cross)
-    .style("fill", "#00000 ");
+    //Paint by genre
+    .style("fill", function (d) {
+      if (d.Sex == "male") {
+        return "#01BCFA";
+      } else {
+        return "#FF8CC2";
+      }
+    })
+    .style("opacity", "0.8");
 });
