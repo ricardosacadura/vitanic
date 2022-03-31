@@ -9,13 +9,14 @@
     <title>VItanic</title>
   </head>
   <body>
-
-    <input type="checkbox" name="men-population" value="men" checked />Men<br />
-    <input type="checkbox" name="women-population" value="women" />Women<br />
-
     <h1 class="title">Vitanic</h1>
 
     <div id="my_dataviz"></div>
+
+    <h3 class="class_1">Class 1</h3>
+    <h3 class="class_2">Class 2</h3>
+    <h3 class="class_3">Class 3</h3>
+    <h3 class="x_axis">Passengers Age</h3>
 
     <div id="sidebar">
       <div class="accordion">
@@ -41,6 +42,12 @@
             <div class="content-desc"><img src="./img/male.svg" />Male</div>
           </div>
         </div>
+      </div>
+
+      <div class="my-options">
+        <button onclick="changeOpacity('0.8', '0.8' );">All</button>
+        <button onclick="changeOpacity('0.8', '0' );">Survivals</button>
+        <button onclick="changeOpacity('0','0.8');">Deaths</button>
       </div>
     </div>
 

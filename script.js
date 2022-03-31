@@ -1,5 +1,6 @@
 const vitanic = "./data/titanic_dataset.csv";
 
+
 // set the dimensions and margins of the graph
 var margin = { top: 10, right: 30, bottom: 30, left: 60 },
   width = 1050 - margin.left - margin.right,
@@ -14,6 +15,19 @@ var svg = d3
   .append("g")
   .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
+
+// This function is called by the buttons on top of the plot
+function changeOpacity(opacityCircle, opacityCross) {
+  d3.selectAll("circle")
+
+    .style("opacity", opacityCircle);
+
+  d3.selectAll("path.Cross")
+
+    .style("opacity", opacityCross)
+}
+
+
 //Read the data
 d3.csv(vitanic, function (data) {
 
@@ -27,11 +41,34 @@ d3.csv(vitanic, function (data) {
   var y = d3.scaleLinear().domain([0, 180]).range([height, 0]);
   svg.append("g").call(d3.axisLeft(y));
 
+  // Making a line top
+  svg
+    .append("line")
+    .style("stroke", "gray")
+    .style("stroke-dasharray", "3, 3")
+    .attr("x1", 0)
+    .attr("y1", 200)
+    .attr("x2", width)
+    .attr("y2", 200);
+
+  // Making a line bottom
+  svg
+    .append("line")
+    .style("stroke", "gray")
+    .style("stroke-dasharray", "3, 3")
+    .attr("x1", 0)
+    .attr("y1", 410)
+    .attr("x2", width)
+    .attr("y2", 410);
+
   // Arrays with genre selection
 
   let survived = data.filter(function (d) {
     return d.Survived == "survival";
   });
+
+  const blue = "#01BCFA";
+  const pink = "#FF8CC2";
 
   // Add dots
   svg //--------------------------------rendering SURVIVALS
@@ -50,14 +87,11 @@ d3.csv(vitanic, function (data) {
 
     //Paint by genre
     .style("fill", function (d) {
-      if (d.Sex == "male") { return "#01BCFA" }
-      else { return "#FF8CC2" }
+      if (d.Sex == "male") { return blue }
+      else { return pink }
       ;
     })
     .style("opacity", "0.8");
-
-    
-
 
   var cross = d3.symbol().type(d3.symbolCross).size(35);
 
@@ -76,10 +110,11 @@ d3.csv(vitanic, function (data) {
       return "translate(" + x(d.Age) + "," + y(d.TicketFarepound) + ")";
     })
     .attr("d", cross)
+    .attr("class", "Cross")
     //Paint by genre
     .style("fill", function (d) {
-      if (d.Sex == "male") { return "#01BCFA" }
-      else { return "#FF8CC2" }
+      if (d.Sex == "male") { return blue }
+      else { return pink }
       ;
     })
     .style("opacity", "0.8");
