@@ -1,9 +1,8 @@
 const vitanic = "./data/titanic_dataset.csv";
 
-
 // set the dimensions and margins of the graph
 var margin = { top: 10, right: 30, bottom: 30, left: 60 },
-  width = 1050 - margin.left - margin.right,
+  width = 950 - margin.left - margin.right,
   height = 650 - margin.top - margin.bottom;
 
 // append the svg object to the body of the page
@@ -15,22 +14,15 @@ var svg = d3
   .append("g")
   .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-
 // This function is called by the buttons on top of the plot
 function changeOpacity(opacityCircle, opacityCross) {
-  d3.selectAll("circle")
+  d3.selectAll("circle").style("opacity", opacityCircle);
 
-    .style("opacity", opacityCircle);
-
-  d3.selectAll("path.Cross")
-
-    .style("opacity", opacityCross)
+  d3.selectAll("path.Cross").style("opacity", opacityCross);
 }
-
 
 //Read the data
 d3.csv(vitanic, function (data) {
-
   // Add X axis
   var x = d3.scaleLinear().domain([0, 80]).range([0, width]);
   svg
@@ -87,9 +79,11 @@ d3.csv(vitanic, function (data) {
 
     //Paint by genre
     .style("fill", function (d) {
-      if (d.Sex == "male") { return blue }
-      else { return pink }
-      ;
+      if (d.Sex == "male") {
+        return blue;
+      } else {
+        return pink;
+      }
     })
     .style("opacity", "0.8");
 
@@ -113,9 +107,11 @@ d3.csv(vitanic, function (data) {
     .attr("class", "Cross")
     //Paint by genre
     .style("fill", function (d) {
-      if (d.Sex == "male") { return blue }
-      else { return pink }
-      ;
+      if (d.Sex == "male") {
+        return blue;
+      } else {
+        return pink;
+      }
     })
     .style("opacity", "0.8");
 });

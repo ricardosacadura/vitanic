@@ -2,6 +2,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  overflow: hidden;
 }
 
 body {
@@ -29,22 +30,20 @@ body {
 
 .title {
   font-family: "Latitude-Regular";
-  position: relative;
-  font-size: 5rem;
+  font-size: 3rem;
   color: #000000;
-  left: 4rem;
-  top: 2rem;
+  margin-left: 2rem;
+  margin-top: 2rem;
 }
 
 #my_dataviz {
   position: relative;
   margin-left: 50px;
-  margin-top: 50px;
+  margin-top: 20px;
 }
 
 #sidebar {
   position: absolute;
-  display: flex;
   background-color: white;
   height: 100vh;
   right: 0;
@@ -61,7 +60,7 @@ body {
   margin: 0px 20px;
 }
 
-.accordion .content-box .label {
+.label {
   font-family: "GaramondRegular";
   font-size: 1.5rem;
   position: relative;
@@ -96,7 +95,7 @@ body {
 }
 
 .accordion .content-box.active .content {
-  height: 100px;
+  height: 270px;
   padding: 10px;
 }
 
@@ -138,7 +137,33 @@ body {
   font-family: "Latitude-Regular";
   font-size: 1rem;
   position: absolute;
-  bottom: 15px;
+  bottom: 0;
   left: 110px;
   z-index: 1;
+}
+
+.my-options {
+  width: 300px;
+  position: relative;
+  margin: 40px 20px 0px;
+}
+
+.button {
+  font-family: "GaramondRegular";
+  font-size: 1rem;
+  background-color: #ffffff;
+  border: none;
+  color: black;
+  padding: 15px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+.button:focus {
+  background-color: gray;
+  color: white;
 }
