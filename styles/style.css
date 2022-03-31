@@ -22,8 +22,13 @@ body {
   src: url("fonts/GaramondPremrPro.otf");
 }
 
+@font-face {
+  font-family: "Latitude-Regular";
+  src: url("fonts/Latitude-Regular.woff");
+}
+
 .title {
-  font-family: "GaramondBold";
+  font-family: "Latitude-Regular";
   position: relative;
   font-size: 5rem;
   color: #000000;
