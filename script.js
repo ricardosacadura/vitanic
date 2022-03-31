@@ -57,8 +57,6 @@ d3.csv(vitanic, function (data) {
     .style("opacity", "0.8");
 
     
-    /*  if (m == true) { return "0.8" }
-      else { return "0.1" };*/
 
 
   var cross = d3.symbol().type(d3.symbolCross).size(35);
