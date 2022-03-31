@@ -1,3 +1,5 @@
+const vitanic = "./data/titanic_dataset.csv";
+
 // set the dimensions and margins of the graph
 var margin = { top: 10, right: 30, bottom: 30, left: 60 },
   width = 1050 - margin.left - margin.right,
@@ -13,8 +15,7 @@ var svg = d3
   .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
 //Read the data
-d3.csv("./data/titanic_dataset.csv", function (data) {
-  console.log(data.Survived);
+d3.csv(vitanic, function (data) {
 
   // Add X axis
   var x = d3.scaleLinear().domain([0, 80]).range([0, width]);
@@ -26,15 +27,17 @@ d3.csv("./data/titanic_dataset.csv", function (data) {
   var y = d3.scaleLinear().domain([0, 180]).range([height, 0]);
   svg.append("g").call(d3.axisLeft(y));
 
+  // Arrays with genre selection
+
+  let survived = data.filter(function (d) {
+    return d.Survived == "survival";
+  });
+
   // Add dots
-  svg
+  svg //--------------------------------rendering SURVIVALS
     .append("g")
     .selectAll("dot")
-    .data(
-      data.filter(function (d) {
-        return d.Survived == "survival";
-      })
-    )
+    .data(survived)
     .enter()
     .append("circle")
     .attr("cx", function (d) {
@@ -43,12 +46,20 @@ d3.csv("./data/titanic_dataset.csv", function (data) {
     .attr("cy", function (d) {
       return y(d.TicketFarepound);
     })
-    .attr("r", 2.5)
-    .style("fill", "#d0d0d0 ");
+    .attr("r", 4)
 
-  var cross = d3.symbol().type(d3.symbolCross).size(20);
+    //Paint by genre
+    .style("fill", function (d) {
+      if (d.Sex == "male") { return "#01BCFA" }
+      else { return "#FF8CC2" }
+      ;
+    })
+    .style("opacity", "0.8");
 
-  svg
+
+  var cross = d3.symbol().type(d3.symbolCross).size(35);
+
+  svg //-------------------------------rendering DEATHS
 
     .append("g")
     .selectAll("#dead-cross")
@@ -63,5 +74,11 @@ d3.csv("./data/titanic_dataset.csv", function (data) {
       return "translate(" + x(d.Age) + "," + y(d.TicketFarepound) + ")";
     })
     .attr("d", cross)
-    .style("fill", "#00000 ");
+    //Paint by genre
+    .style("fill", function (d) {
+      if (d.Sex == "male") { return "#01BCFA" }
+      else { return "#FF8CC2" }
+      ;
+    })
+    .style("opacity", "0.8");
 });
